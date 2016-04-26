@@ -55,11 +55,9 @@ and it should look like: (list (list \"pagetitle\" \"uri-path\" <widget>))")
   (let ((str-widget (make-widget :session '<string-widget>)))
     (setf (text str-widget)
 	  (with-output-to-string (ret-val "<ul>")
-	    (let (
-		  (current-widget nil))
+	    (let ((current-widget nil))
 	      (dolist (page (pages this))
-		(format ret-val
-			"<li>")
+		(format ret-val "<li>")
 		(format ret-val (render-widget
 				 (make-link :global (first page)
 					    #'(lambda ()
@@ -75,7 +73,7 @@ and it should look like: (list (list \"pagetitle\" \"uri-path\" <widget>))")
 		    (list current-widget))
 	      (format ret-val "</ul>")
 	      (format ret-val (render-widget (composite this))))))
-    (setf (body this))
+    (setf (body this) str-widget)
     (call-next-method this)))
 
 (defmethod find-item ((this <navigation-widget>) (item string))
